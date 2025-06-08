@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    // https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox
+    implementation("org.apache.pdfbox:pdfbox:3.0.5")
+
+    // From html to PDF
+    // https://mvnrepository.com/artifact/org.xhtmlrenderer/flying-saucer-pdf-openpdf
+    implementation("org.xhtmlrenderer:flying-saucer-pdf-openpdf:9.4.0")
+    // https://mvnrepository.com/artifact/org.freemarker/freemarker
+    implementation("org.freemarker:freemarker:2.3.34")
+}
+
+test {
+    useJUnitPlatform()
+}
