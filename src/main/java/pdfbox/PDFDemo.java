@@ -30,12 +30,42 @@ public class PDFDemo {
         log.info("Page width:{} and height:{}", pageWidth, pageHeight);
 
         PDPageContentStream contentStream = new PDPageContentStream(document, firstPage);
-        contentStream.setStrokingColor(Color.BLACK);
-        contentStream.setLineWidth(2);
-        contentStream.moveTo(pageWidth - 250, pageHeight - 50); // // Start point (x, y)
-        contentStream.lineTo(pageWidth - 25, pageHeight - 50); // End point (x, y)
-        contentStream.stroke(); // draw the line
 
+        // Top shape
+        int[][] coordinates = new int[][] {{0, pageHeight}, {200, pageHeight}, {pageWidth *2/3, pageHeight - 80}, {0, pageHeight - 80}};
+        Color color1 = new Color(204, 231, 255);
+        drawShap(contentStream, coordinates, color1, color1);
+        Color aliceBlue = new Color(240, 248, 255);
+        coordinates = new int[][] {{200, pageHeight}, {250, pageHeight}, {pageWidth *2/3, pageHeight - 80}};
+        drawShap(contentStream, coordinates, aliceBlue, aliceBlue);
+        Color darkBlue = new Color(0, 82, 153);
+        coordinates = new int[][] {{240, pageHeight - 80}, {pageWidth, pageHeight - 80}, {pageWidth, pageHeight - 90}};
+        drawShap(contentStream, coordinates, darkBlue, darkBlue);
+
+        // Bottom shape
+        coordinates = new int[][] {{0, 20}, {100, 20}, {80, 0}, {0, 0}};
+        drawShap(contentStream, coordinates, darkBlue, darkBlue);
+        coordinates = new int[][] {{100, 20}, {pageWidth - 150, 20}, {pageWidth - 170, 0}, {80, 0}};
+        drawShap(contentStream, coordinates, color1, color1);
+        coordinates = new int[][] {{pageWidth - 150, 20}, {pageWidth - 70, 20}, {pageWidth - 90, 0}, {pageWidth - 170, 0}};
+        drawShap(contentStream, coordinates, darkBlue, darkBlue);
+        coordinates = new int[][] {{pageWidth - 70, 20}, {pageWidth - 50, 20}, {pageWidth - 70, 0}, {pageWidth - 90, 0}};
+        drawShap(contentStream, coordinates, color1, color1);
+        Color orange = new Color(255, 128, 0);
+        coordinates = new int[][] {{pageWidth - 50, 20}, {pageWidth - 20, 20}, {pageWidth - 40, 0}, {pageWidth - 70, 0}};
+        drawShap(contentStream, coordinates, orange, orange);
+        coordinates = new int[][] {{pageWidth - 20, 20}, {pageWidth, 20}, {pageWidth - 20, 0}, {pageWidth - 40, 0}};
+        drawShap(contentStream, coordinates, color1, color1);
+        coordinates = new int[][] {{pageWidth, 20}, {pageWidth, 0}, {pageWidth - 20, 0}};
+        drawShap(contentStream, coordinates, darkBlue, darkBlue);
+
+        // 1st Information
+        Color infoBoxColor = new Color(230, 243, 255);
+        coordinates = new int[][] {{20, pageHeight - 100}, {pageWidth - 20, pageHeight - 100}, {pageWidth - 20, pageHeight - 130}, {20, pageHeight - 130}};
+        drawShap(contentStream, coordinates, infoBoxColor, infoBoxColor);
+        PDFTextWriter textWriter = new PDFTextWriter(document, contentStream);
+        PDFont font = new PDType1Font(Standard14Fonts.FontName.HELVETICA);
+        textWriter.addSingleLineText("Primary Contact Information", 40, pageHeight - 120, font, 20, darkBlue);
 
         contentStream.close();
         document.save("demo.pdf"); // This will create a pdf file in root project.
@@ -43,6 +73,41 @@ public class PDFDemo {
         document.close();
         System.out.println("PDF created!");
         log.info("PDF Created");
+    }
+
+    private static void drawShap(PDPageContentStream contentStream, int[][] coordinates, Color strokingColor, Color fillColor) throws IOException {
+        // Set line width and color
+        contentStream.setLineWidth(0);
+        contentStream.setStrokingColor(strokingColor);
+        if (fillColor != null) {
+            contentStream.setNonStrokingColor(fillColor);
+        }
+        // Begin drawing
+//        contentStream.moveTo(0, pageHeight); // First point
+//        contentStream.lineTo(200, pageHeight); // Second point
+//        contentStream.lineTo(pageWidth *2/3, pageHeight - 60); // Third point
+//        contentStream.lineTo(0, pageHeight - 60); // Fourth point
+        for (int i = 0; i < coordinates.length; i++) {
+            if (i == 0) {
+                contentStream.moveTo(coordinates[i][0], coordinates[i][1]);
+            } else {
+                contentStream.lineTo(coordinates[i][0], coordinates[i][1]);
+            }
+        }
+        contentStream.closePath(); // Closes the path back to (x1, y1)
+        if (fillColor == null) {
+            contentStream.stroke(); // Outline the quadrilateral
+        } else {
+            contentStream.fillAndStroke();
+        }
+    }
+
+    private static void drawLine(int pageWidth, int pageHeight, PDPageContentStream contentStream) throws IOException {
+        contentStream.setStrokingColor(Color.BLACK);
+        contentStream.setLineWidth(2);
+        contentStream.moveTo(pageWidth - 250, pageHeight - 50); // // Start point (x, y)
+        contentStream.lineTo(pageWidth - 25, pageHeight - 50); // End point (x, y)
+        contentStream.stroke(); // draw the line
     }
 
     private static void createTable(int pageHeight, PDPageContentStream contentStream) throws IOException {

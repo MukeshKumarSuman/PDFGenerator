@@ -5,7 +5,10 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 
-import java.io.*;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.StringWriter;
 import java.util.Map;
 import java.util.Objects;
 
@@ -27,7 +30,8 @@ public class FreemarkerRenderingService {
         Template template = loadTemplate(templateName);
         String html = processTemplate(template, dataModel);
         System.out.println(html);
-        htmlToPdf(html);
+//        htmlToPdf(html);
+        openHtmlToPdf(html);
         return html;
     }
 
@@ -44,6 +48,7 @@ public class FreemarkerRenderingService {
     private void htmlToPdf(String content) throws IOException {
 
 //        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
         OutputStream outputStream = new FileOutputStream("MoxoPdfFromHtml.pdf");
 
         ITextRenderer iTextRenderer = new ITextRenderer();
@@ -59,6 +64,18 @@ public class FreemarkerRenderingService {
 //        byte[] byteArray = byteArrayOutputStream.toByteArray();
 //        System.out.println(byteArray);
 
+    }
 
+    private void openHtmlToPdf(String htmlContent) {
+//        try (OutputStream os = new FileOutputStream("openhtmltopdf.pdf")) {
+//            PdfRendererBuilder builder = new PdfRendererBuilder();
+//            builder.useFastMode(); // Optional: improves speed
+//            builder.withHtmlContent(htmlContent, null); // base URI = null (no external resources)
+//            builder.toStream(os);
+//            builder.run();
+//            System.out.println("PDF created successfully.");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 }
