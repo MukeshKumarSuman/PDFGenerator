@@ -189,6 +189,18 @@ No any inbuilt library to create table.
 ```
 ![MyCode](docimages/tablewithtext.png "optional-title")
 
+## Draw a line
+```java
+    PDPageContentStream contentStream = new PDPageContentStream(document, firstPage);
+    contentStream.setStrokingColor(Color.BLACK);
+    contentStream.setLineWidth(2);
+    contentStream.moveTo(pageWidth - 250, pageHeight - 50); // // Start point (x, y)
+    contentStream.lineTo(pageWidth - 25, pageHeight - 50); // End point (x, y)
+    contentStream.stroke(); // draw the line
+    contentStream.close();
+```
+![MyCode](docimages/line.png "optional-title")
+
 # Git command
 ## …or create a new repository on the command line
 ```

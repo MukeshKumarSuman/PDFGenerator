@@ -30,7 +30,12 @@ public class PDFDemo {
         log.info("Page width:{} and height:{}", pageWidth, pageHeight);
 
         PDPageContentStream contentStream = new PDPageContentStream(document, firstPage);
-        createTable(pageHeight, contentStream);
+        contentStream.setStrokingColor(Color.BLACK);
+        contentStream.setLineWidth(2);
+        contentStream.moveTo(pageWidth - 250, pageHeight - 50); // // Start point (x, y)
+        contentStream.lineTo(pageWidth - 25, pageHeight - 50); // End point (x, y)
+        contentStream.stroke(); // draw the line
+
 
         contentStream.close();
         document.save("demo.pdf"); // This will create a pdf file in root project.
