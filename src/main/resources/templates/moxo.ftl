@@ -6,6 +6,14 @@
    </head>
    <body>
         <#include 'common/heading.ftl'>
-       <p>${message}</p>
+        <table>
+            <tr>
+                <td>
+                    <img width="300" alt="logo" src="<@imsgeSrc file='footer.png'></@imageSrc>"/>
+                </td>
+            </tr>
+            <tr></tr>
+            <tr></tr>
+        </table>
    </body>
    </html>

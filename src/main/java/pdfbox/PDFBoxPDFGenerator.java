@@ -47,7 +47,7 @@ public class PDFBoxPDFGenerator {
             PDFont font = new PDType1Font(Standard14Fonts.FontName.HELVETICA);
             PDFont italicFont = new PDType1Font(Standard14Fonts.FontName.HELVETICA_OBLIQUE);
 
-//            PDImageXObject headImage = PDImageXObject.createFromFile("src/main/resources/img/Indian Tadka head.png", document);
+//            PDImageXObject headImage = PDImageXObject.createFromFile("src/main/resources/img/IndianTadkahead.png", document);
             PDImageXObject headImage = PDImageXObject.createFromFile("src/main/resources/img/mineraltree.png", document);
             contentStream.drawImage(headImage, 150, pageHeight - 150, pageWidth - 300, 150);
 

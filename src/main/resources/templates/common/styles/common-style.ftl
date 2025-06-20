@@ -18,4 +18,9 @@
     .uppercase {
         text-transform: uppercase;
     }
+    .flex-row {
+         display: flex;
+        justify-content: space-between;
+        column-gap: 60px;
+    }
 </style>

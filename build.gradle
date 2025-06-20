@@ -12,22 +12,23 @@ repositories {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    implementation("org.slf4j:slf4j-api:2.0.17")
+    // For pdf box java library
     // https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox
     implementation("org.apache.pdfbox:pdfbox:3.0.5")
 
-    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
-    implementation("org.slf4j:slf4j-api:2.0.17")
+
 
     // From html to PDF
-    // https://mvnrepository.com/artifact/org.xhtmlrenderer/flying-saucer-pdf-openpdf
-//    implementation("org.xhtmlrenderer:flying-saucer-pdf-openpdf:9.4.0")
-    // above on replace with below one
+    // https://mvnrepository.com/artifact/org.jsoup/jsoup
+    implementation("org.jsoup:jsoup:1.20.1")
+    // https://mvnrepository.com/artifact/org.xhtmlrenderer/flying-saucer-core
+    implementation("org.xhtmlrenderer:flying-saucer-core:9.12.1")
     // https://mvnrepository.com/artifact/org.xhtmlrenderer/flying-saucer-pdf
-    implementation("org.xhtmlrenderer:flying-saucer-pdf:9.12.0")
+    implementation("org.xhtmlrenderer:flying-saucer-pdf:9.12.1")
 
-    // https://mvnrepository.com/artifact/com.openhtmltopdf/openhtmltopdf-pdfbox
-    // it used pdfbox with version 2.0.24 internally and 2.0.24 has some vulnerability.
-//    implementation("com.openhtmltopdf:openhtmltopdf-pdfbox:1.0.10")
+
+    // From .ftl to pdf. It will also use flying-saucer-pdf
     // https://mvnrepository.com/artifact/org.freemarker/freemarker
     implementation("org.freemarker:freemarker:2.3.34")
 }

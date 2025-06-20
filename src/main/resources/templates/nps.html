@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
+<head>
+    <style>
+        .color-blue {
+            color: #6699FF;
+        }
+        @page {
+            size: A4;
+            margin: 0;
+        }
+        #pagenumber:before {
+            content: counter(page);
+        }
+
+        #pagecount:before {
+            content: counter(pages);
+        }
+        @font-face {
+            font-family: "Butterfly";
+            src: url("Butterfly.ttf");
+        }
+        .butterfly {
+            font-family: "Butterfly";
+        }
+        body {
+            font-family: sans-serif;
+            position: relative;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        #header {
+            position: relative;
+            width: 100%;
+        }
+
+        #header img {
+            width: 100%;
+            height: 150px;
+            display: block;
+        }
+
+        #header .header-text-container {
+           position: absolute;
+           top: 25px;
+           left: 50px;
+           padding: 5px 10px;
+        }
+
+        .header-text {
+            margin: 10px 0 10px 0;
+            color: #1e47a6;
+            font-weight: 600;
+            font-size: 25px;
+        }
+        .header-sub-text {
+            font-weight: 200;
+            font-size: 18px;
+        }
+
+
+        #footer {
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+        }
+
+        .footer > img, div > img {
+            height: 40px;
+            width: 100%;
+        }
+
+        .content {
+            margin: 40px 20px;
+            width: calc(100% - 40px);
+            text-align: left;
+        }
+        .content-header {
+            background-color: rgb(240, 248, 255);
+            color: #1e47a6;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 18px;
+        }
+        .content-data {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+        }
+        .full-width {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 8px;
+        }
+        .half-container {
+            width: 100%;
+        }
+        .half {
+            display: inline-block;
+            width: 48%;
+            vertical-align: top;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .half + .half {
+            margin-left: 2%;
+        }
+        .content-data p {
+            margin-bottom: -8px;
+        }
+        .attachment-icon {
+            width: 15px;
+        }
+    </style>
+</head>
+<body>
+<div id="header">
+    <img class="logo" src="../img/header.png">
+    <div class="header-text-container">
+        <div class="header-text">Customer Name</div>
+        <div class="header-sub-text">Vendor Payments Application</div>
+    </div>
+</div>
+<div class="content">
+    <div class="content-header">Primary Contact Information</div>
+    <div class="content-data">
+        <div class="full-width">
+            <p class="color-blue">Company description</p>
+            <p>In CSS, a color can be specified by using a predefined color name: Tomato, Orange, DodgerBlue, MediumSeaGreen, Gray, SlateBlue, Violet, LightGray.All modern browsers support the following 140 color names (click on a color name, or a hex value, to view the color as the background-color along with </p>
+        </div>
+        <div class="half-container">
+            <div class="half">
+                <p class="color-blue">Primary Contact Name</p>
+                <p>Mukesh Kumar Suman</p>
+            </div>
+        </div>
+        <div class="half-container">
+            <div class="half">
+                <p class="color-blue">Primary Contact Phone Number</p>
+                <p>+1 21225551000 </p>
+            </div>
+            <div class="half">
+                <p class="color-blue">Primary Contact Email Address</p>
+                <p>Anikjain@globalpay.com</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content">
+    <div class="content-header">Primary Contact Information</div>
+    <div class="content-data">
+        <div class="full-width">
+            <p class="color-blue">Company description</p>
+            <p>In CSS, a color can be specified by using a predefined color name: Tomato, Orange, DodgerBlue, MediumSeaGreen, Gray, SlateBlue, Violet, LightGray.All modern browsers support the following 140 color names (click on a color name, or a hex value, to view the color as the background-color along with </p>
+        </div>
+        <div class="half-container">
+            <div class="half">
+                <p class="color-blue">Primary Contact Name</p>
+                <p><img class="attachment-icon" src="../img/icons-attachment.png"></img> Mukesh Kumar Suman</p>
+            </div>
+        </div>
+        <div class="half-container">
+            <div class="half">
+                <p class="color-blue">Primary Contact Phone Number</p>
+                <p>+1 21225551000 </p>
+            </div>
+            <div class="half">
+                <p class="color-blue">Primary Contact Email Address</p>
+                <p>Anikjain@globalpay.pdf</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="footer">
+    page <span id="pagenumber"></span> of <span id="pagecount"></span>
+    <img src="../img/footer.png">
+</div>
+</body>
+</html>

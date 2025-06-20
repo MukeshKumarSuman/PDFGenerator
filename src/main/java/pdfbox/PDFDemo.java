@@ -28,20 +28,100 @@ public class PDFDemo {
         int pageHeight = (int) firstPage.getTrimBox().getHeight();
         System.out.println(String.format("Page width:%s and height:%s", pageWidth, pageHeight));
         log.info("Page width:{} and height:{}", pageWidth, pageHeight);
+        Color color1 = new Color(204, 231, 255);
+        Color aliceBlue = new Color(240, 248, 255);
+        Color darkBlue = new Color(0, 82, 153);
+        PDFont font = new PDType1Font(Standard14Fonts.FontName.HELVETICA);
 
         PDPageContentStream contentStream = new PDPageContentStream(document, firstPage);
 
+        // Rectangle position and size
+        float x = 100;
+        float y = 400;
+        float width = 400;
+        float height = 150;
+
+        // Draw outer rectangle
+        Color white = new Color(255, 255, 255);
+        contentStream.setStrokingColor(white);
+        contentStream.setLineWidth(0);
+        contentStream.addRect(x, y, width, height);
+        contentStream.stroke();
+
+        // Split halves
+        float halfWidth = width / 2;
+
+        // Draw center line to split box
+        contentStream.moveTo(x + halfWidth, y);
+        contentStream.lineTo(x + halfWidth, y + height);
+        contentStream.stroke();
+
+        // Text settings
+
+        float fontSize = 12;
+        float leading = 1.5f * fontSize;
+        String[] leftTexts = {"Left Line 1", "Left Line 2"};
+        String[] rightTexts = {"Right Line A", "Right Line B"};
+
+        // Start writing left half
+        float leftTextX = x + 10;
+        float textY = y + height - leading;
+
+        contentStream.beginText();
+        contentStream.setFont(font, fontSize);
+        contentStream.setLeading(leading);
+        contentStream.newLineAtOffset(leftTextX, textY);
+        for (String line : leftTexts) {
+            contentStream.showText(line);
+            contentStream.newLine();
+        }
+        contentStream.endText();
+
+        // Start writing right half
+        float rightTextX = x + halfWidth + 10;
+
+        contentStream.beginText();
+        contentStream.setFont(font, fontSize);
+        contentStream.setLeading(leading);
+        contentStream.newLineAtOffset(rightTextX, textY);
+        for (String line : rightTexts) {
+            contentStream.showText(line);
+            contentStream.newLine();
+        }
+        contentStream.endText();
+
+
+
+        header(pageWidth, pageHeight, color1, aliceBlue, darkBlue, contentStream);
+        footer(pageWidth, color1, darkBlue, contentStream);
+
+        // 1st Information
+        Color infoBoxColor = new Color(230, 243, 255);
+        int[][] coordinates = new int[][] {{20, pageHeight - 100}, {pageWidth - 20, pageHeight - 100}, {pageWidth - 20, pageHeight - 130}, {20, pageHeight - 130}};
+        drawShap(contentStream, coordinates, infoBoxColor, infoBoxColor);
+        PDFTextWriter textWriter = new PDFTextWriter(document, contentStream);
+        textWriter.addSingleLineText("Primary Contact Information", 40, pageHeight - 120, font, 20, darkBlue);
+
+        contentStream.close();
+        document.save("demo.pdf"); // This will create a pdf file in root project.
+//        document.save("C:\\Users\\Lenovo\\Desktop\\demo.pdf"); // This will create a pdf file in Desktop.
+        document.close();
+        System.out.println("PDF created!");
+        log.info("PDF Created");
+    }
+
+    private static void header(int pageWidth, int pageHeight, Color color1, Color aliceBlue, Color darkBlue, PDPageContentStream contentStream) throws IOException {
         // Top shape
         int[][] coordinates = new int[][] {{0, pageHeight}, {200, pageHeight}, {pageWidth *2/3, pageHeight - 80}, {0, pageHeight - 80}};
-        Color color1 = new Color(204, 231, 255);
         drawShap(contentStream, coordinates, color1, color1);
-        Color aliceBlue = new Color(240, 248, 255);
         coordinates = new int[][] {{200, pageHeight}, {250, pageHeight}, {pageWidth *2/3, pageHeight - 80}};
         drawShap(contentStream, coordinates, aliceBlue, aliceBlue);
-        Color darkBlue = new Color(0, 82, 153);
         coordinates = new int[][] {{240, pageHeight - 80}, {pageWidth, pageHeight - 80}, {pageWidth, pageHeight - 90}};
         drawShap(contentStream, coordinates, darkBlue, darkBlue);
+    }
 
+    private static void footer(int pageWidth, Color color1, Color darkBlue, PDPageContentStream contentStream) throws IOException {
+        int[][] coordinates;
         // Bottom shape
         coordinates = new int[][] {{0, 20}, {100, 20}, {80, 0}, {0, 0}};
         drawShap(contentStream, coordinates, darkBlue, darkBlue);
@@ -58,21 +138,6 @@ public class PDFDemo {
         drawShap(contentStream, coordinates, color1, color1);
         coordinates = new int[][] {{pageWidth, 20}, {pageWidth, 0}, {pageWidth - 20, 0}};
         drawShap(contentStream, coordinates, darkBlue, darkBlue);
-
-        // 1st Information
-        Color infoBoxColor = new Color(230, 243, 255);
-        coordinates = new int[][] {{20, pageHeight - 100}, {pageWidth - 20, pageHeight - 100}, {pageWidth - 20, pageHeight - 130}, {20, pageHeight - 130}};
-        drawShap(contentStream, coordinates, infoBoxColor, infoBoxColor);
-        PDFTextWriter textWriter = new PDFTextWriter(document, contentStream);
-        PDFont font = new PDType1Font(Standard14Fonts.FontName.HELVETICA);
-        textWriter.addSingleLineText("Primary Contact Information", 40, pageHeight - 120, font, 20, darkBlue);
-
-        contentStream.close();
-        document.save("demo.pdf"); // This will create a pdf file in root project.
-//        document.save("C:\\Users\\Lenovo\\Desktop\\demo.pdf"); // This will create a pdf file in Desktop.
-        document.close();
-        System.out.println("PDF created!");
-        log.info("PDF Created");
     }
 
     private static void drawShap(PDPageContentStream contentStream, int[][] coordinates, Color strokingColor, Color fillColor) throws IOException {
@@ -162,7 +227,7 @@ public class PDFDemo {
 
     private static void addImage(PDDocument document, int pageWidth, int pageHeight, PDPageContentStream contentStream) throws IOException {
         // Add image
-        PDImageXObject headImage = PDImageXObject.createFromFile("src/main/resources/img/Indian Tadka head.png", document);
+        PDImageXObject headImage = PDImageXObject.createFromFile("src/main/resources/img/IndianTadkahead.png", document);
         contentStream.drawImage(headImage, 150, pageHeight - 200, pageWidth - 300, 150);
     }
 

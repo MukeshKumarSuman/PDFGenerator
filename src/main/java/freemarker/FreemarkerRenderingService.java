@@ -30,8 +30,8 @@ public class FreemarkerRenderingService {
         Template template = loadTemplate(templateName);
         String html = processTemplate(template, dataModel);
         System.out.println(html);
-//        htmlToPdf(html);
-        openHtmlToPdf(html);
+        htmlToPdf(html);
+//        openHtmlToPdf(html);
         return html;
     }
 
@@ -46,6 +46,8 @@ public class FreemarkerRenderingService {
     }
 
     private void htmlToPdf(String content) throws IOException {
+        System.out.println("HTML Content");
+        System.out.println(content);
 
 //        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
@@ -59,7 +61,7 @@ public class FreemarkerRenderingService {
         outputStream.close();
 
 
-
+//
 //        iTextRenderer.createPDF(byteArrayOutputStream);
 //        byte[] byteArray = byteArrayOutputStream.toByteArray();
 //        System.out.println(byteArray);
